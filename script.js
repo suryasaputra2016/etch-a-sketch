@@ -6,7 +6,6 @@ function addHue(event) {
 
 // reset grid
 let newGrid = document.querySelector('.new-grid');
-console.log(newGrid);
 newGrid.addEventListener('click', resetGrid);
 
 function resetGrid() {
@@ -17,12 +16,16 @@ function resetGrid() {
     if(grid<1) {
         grid = 1;
     }
+    if(isNaN(grid)) {
+        grid = 16;
+    }
 
     setupCanvass(grid);
 }
 
 function setupCanvass(grid) {
     const container = document.querySelector('.container');
+
     while(container.firstChild) {
         container.removeChild(container.firstChild);
     }
@@ -31,6 +34,7 @@ function setupCanvass(grid) {
 
         let row = document.createElement('div');
         row.setAttribute("class", "row");
+        row.style.width = String(100/grid) + "%";
     
         let children = row.children;
     
@@ -40,6 +44,7 @@ function setupCanvass(grid) {
     
         for(child of children) {
             child.setAttribute("class", "pixel");
+            child.style.height = String(100/grid) + "%";
         }
     
         container.appendChild(row);
